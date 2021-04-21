@@ -1,0 +1,372 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Text.RegularExpressions;
+
+namespace Calculo_notas
+{
+    class Program
+    {
+        private static bool IsLetters(string letra)
+        {
+            foreach (Char ch in letra)
+            {
+                if (!Char.IsLetter(ch) && ch!=32)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        public static bool EmailValido(String email)
+        {
+            String validando = @"^[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]{3}(\.[a-zA-Z]{2,3})?$";
+            if (Regex.IsMatch(email, validando))
+            {
+                if (Regex.Replace(email, validando, String.Empty).Length == 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+
+                }
+            }
+            else
+            {
+                return false;
+            }
+
+        }
+
+        public static void IniciarPrograma()
+        {
+            Console.WriteLine("BIENVENIDO AL PROGRAMA CÁLCULA TUS NOTAS ");
+            bool bNom = false;
+            while (bNom == false)
+            {
+                Console.Write("\nDigite su nombre: ");
+                string nom = Console.ReadLine();
+                if (string.IsNullOrEmpty(nom))
+                {
+                    Console.WriteLine("\nError, no ha ingresado ningún dato");
+                    Console.WriteLine("Ingrese el nombre nuevamente");
+
+                }
+                else if (IsLetters(nom))
+                {
+                    bNom = true;
+                }
+                else
+                {
+                    Console.WriteLine("\nError, ingrese solo letras");
+                    Console.WriteLine("Ingrese el nombre nuevamente");
+                }
+            }
+            IngresarApellido();
+        }
+
+        public static void IngresarApellido()
+        {
+            bool nApe = false;
+            while (nApe == false)
+            {
+                Console.Write("\nDigite sus apellidos completos: ");
+                string ape = Console.ReadLine();
+                if (string.IsNullOrEmpty(ape))
+                {
+                    Console.WriteLine("\nError, no ha ingresado ningún dato");
+                    Console.WriteLine("Ingrese los apellidos nuevamente");
+                }
+                else if (IsLetters(ape))
+                {
+                    nApe = true;
+                }
+                else
+                {
+                    Console.WriteLine("\nError, ingrese solo letras");
+                    Console.WriteLine("Ingrese los apellidos nuevamente");
+                }
+            }
+            IngresarCelular();
+        }
+
+        public static void IngresarCelular()
+        {
+            bool bStrNumCel = false;
+            while (bStrNumCel == false)
+            {
+                Console.Write("\nDigite su número celular: ");
+                string strNumCel = Console.ReadLine();
+                if (string.IsNullOrEmpty(strNumCel))
+                {
+                    Console.WriteLine("\nError, no ha ingresado ningún dato");
+                    Console.WriteLine("Ingrese el celular nuevamente");
+                }
+                else if (decimal.TryParse(strNumCel, out decimal numCel))
+                {
+                    if (numCel < 3000000000 || numCel >= 4000000000)
+                    {
+                        Console.WriteLine("\nError, número celular fuera de los limites");
+                        Console.WriteLine("Ingrese el celular nuevamente");
+                    }
+                    else
+                    {
+                        bStrNumCel = true;
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("\nError, ingrese solo valores númericos");
+                    Console.WriteLine("Ingrese el celular nuevamente");
+                }
+            }
+            IngresarFijo();
+        }
+
+        public static void IngresarFijo()
+        {
+            bool nFij = false;
+            while (nFij == false)
+            {
+                Console.Write("\nDigite su número fijo: ");
+                string strNumFij = Console.ReadLine();
+                if (string.IsNullOrEmpty(strNumFij))
+                {
+                    Console.WriteLine("\nError, no ha ingresado ningún dato");
+                    Console.WriteLine("Ingrese el fijo nuevamente");
+                }
+                else if (int.TryParse(strNumFij, out int numFij))
+                {
+                    if (numFij < 1000000 || numFij > 9999999)
+                    {
+                        Console.WriteLine("\nError, número fijo fuera de los limites");
+                        Console.WriteLine("Ingrese el celular nuevamente");
+                    }
+                    else
+                    {
+                        nFij = true;
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("\nError, ingrese solo valores númericos");
+                    Console.WriteLine("Ingrese el fijo nuevamente");
+                }
+            }
+            IngresarPrograma();
+        }
+
+        public static void IngresarPrograma()
+        {
+            bool bProMat = false;
+            while (bProMat == false)
+            {
+                Console.Write("\nDigite el programa al que está matriculado: ");
+                string proMat = Console.ReadLine();
+                if (string.IsNullOrEmpty(proMat))
+                {
+                    Console.WriteLine("\nError, no ha ingresado ningún dato");
+                    Console.WriteLine("Ingrese el nombre del programa nuevamente");
+                }
+                else if (IsLetters(proMat))
+                {
+                    bool bCodPro = false;
+                    while (bCodPro == false)
+                    {
+                        Console.Write("\nDigite el código del programa: ");
+                        string strCodPro = Console.ReadLine();
+                        if (string.IsNullOrEmpty(strCodPro))
+                        {
+                            Console.WriteLine("\nError, no ha ingresado ningún dato");
+                            Console.WriteLine("Ingrese el código del programa nuevamente");
+                        }
+                        else if (decimal.TryParse(strCodPro, out decimal codPro))
+                        {
+                            bProMat = true;
+                            bCodPro = true;
+                        }
+                        else
+                        {
+                            Console.WriteLine("\nError, ingrese solo valores númericos");
+                            Console.WriteLine("Ingrese el código del programa nuevamente");
+                        }
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("\nError, ingrese solo letras");
+                    Console.WriteLine("Ingrese el nombre del programa nuevamente");
+                }
+            }
+            IngresarCorreo();
+        }
+
+        public static void IngresarCorreo()
+        {
+            bool bElc = false;
+            while (bElc == false)
+            {
+
+                Console.Write("\nDigite su correo electronico: ");
+                string corElc = Console.ReadLine();
+                if (EmailValido(corElc) == false)
+                {
+                    Console.WriteLine("\nError, ingrese un Email Válido"); 
+                    Console.WriteLine("Ingrese el correo electronico nuevamente");
+                }
+                else
+                {
+                    bElc = true;
+                }
+            }
+            IngresarCurso();
+        }
+
+        public static void IngresarCurso()
+        {
+            bool bNomCur = false;
+            while (bNomCur == false)
+            {
+                Console.Write("\nDigite el nombre del curso: ");
+                string nomCur = Console.ReadLine();
+                if (string.IsNullOrEmpty(nomCur))
+                {
+                    Console.WriteLine("\nError, no ha ingresado ningún dato");
+                    Console.WriteLine("Ingrese el nombre del curso nuevamente");
+                }
+                else if (IsLetters(nomCur))
+                {
+                    bool bCreCur = false;
+                    while (bCreCur == false)
+                    {
+                        Console.Write("\nDigite la cantidad de créditos del curso: ");
+                        string strCreCur = Console.ReadLine();
+                        if (string.IsNullOrEmpty(strCreCur))
+                        {
+                            Console.WriteLine("\nError, no ha ingresado ningún dato");
+                            Console.WriteLine("Ingrese la cantidad de créditos del curso nuevamente");
+                        }
+                        else if (byte.TryParse(strCreCur, out byte creCur))
+                        {
+                            bCreCur = true;
+                            bNomCur = true;
+                        }
+                        else
+                        {
+                            Console.WriteLine("\nError, ingrese solo valores númericos");
+                            Console.WriteLine("Ingrese la cantidad de créditos del curso nuevamente");
+                        }
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("\nError, ingrese solo letras");
+                    Console.WriteLine("Ingrese el nombre del curso nuevamente");
+                }
+            }
+            IngresarCodigo();
+        }
+
+        public static void IngresarCodigo()
+        {
+            bool bCodCur = false;
+            while (bCodCur == false)
+            {
+                Console.Write("\nDigite el código del curso: ");
+                string strCodCur = Console.ReadLine();
+                if (string.IsNullOrEmpty(strCodCur))
+                {
+                    Console.WriteLine("\nError, no ha ingresado ningún dato");
+                    Console.WriteLine("Ingrese el código del curso nuevamente");
+                }
+                else if (decimal.TryParse(strCodCur, out decimal codCur))
+                {
+                    bCodCur = true;
+                }
+                else
+                {
+                    Console.WriteLine("\nError, ingrese solo valores númericos");
+                    Console.WriteLine("Ingrese el código del curso nuevamente");
+                }
+            }
+            IngresarNotas();
+        }
+
+        public static void IngresarNotas()
+        {
+            Console.WriteLine("\nCÁLCULO DE NOTAS:");
+            float[] notas = new float[5];
+
+            for (int i = 0; i < notas.Length; i++)
+            {
+                bool bNotas = false;
+                while (bNotas == false)
+                {
+                    Console.Write($"\nIngrese la nota {i + 1}: ");
+                    string StrNotas = Console.ReadLine();
+                    if (string.IsNullOrEmpty(StrNotas))
+                    {
+                        Console.WriteLine("\nError, no ha ingresado ningún dato");
+                        Console.WriteLine($"Ingrese la nota {i + 1} nuevamente");
+                    }
+                    else if (float.TryParse(StrNotas, out float nota))
+                    {
+                        if (nota < 0 || nota > 5)
+                        {
+                            Console.WriteLine("\nError, notas fuera de los limites (0-5)");
+                            Console.WriteLine($"Ingrese la nota {i + 1} nuevamente");
+                        }
+                        else
+                        {
+                            notas[i] = nota;
+                            bNotas = true;
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("\nError, ingrese solo valores númericos");
+                        Console.WriteLine($"Ingrese la nota {i + 1} nuevamente");
+                    }
+                }
+            }
+
+            float def = ((notas[0] / 100) * 20) + ((notas[1] / 100) * 25) + ((notas[2] / 100) * 25) +
+                ((notas[3] / 100) * 15) + ((notas[4] / 100) * 15);
+
+            Console.WriteLine($"\nSu nota definitiva es de: {def}");
+
+            if (def < 2.5)
+            {
+                Console.WriteLine("Rendimiento insuficiente");
+            }
+            else if (def >= 2.5 && def < 3)
+            {
+                Console.WriteLine("Situación especial");
+            }
+            else if (def >= 3 && def < 4)
+            {
+                Console.WriteLine("Situación normal");
+            }
+            else if (def >= 4 && def < 4.5)
+            {
+                Console.WriteLine("Situación sobresaliente");
+            }
+            else if (def >= 4.5 && def <= 5)
+            {
+                Console.WriteLine("Situación excelente");
+            }
+        }
+
+        static void Main(string[] args)
+        {
+            IniciarPrograma();
+
+            Console.ReadKey();
+        }
+    }
+}
